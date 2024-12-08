@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vehicle Checklist</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0 auto;
+      max-width: 600px;
+      padding: 10px;
+    }
+    input[type="checkbox"], input[type="text"], textarea {
+      display: block;
+      margin: 10px 0;
+    }
+    input[type="checkbox"] {
+      transform: scale(1.5);
+      margin-right: 10px;
+    }
+    button {
+      font-size: 18px;
+      padding: 10px 20px;
+      margin-top: 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+    }
+    fieldset {
+      margin-bottom: 20px;
+    }
+    legend {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2>Vehicle Checklist</h2>
+  <form id="checklistForm">
+    <label for="employeeName">Employee Name:</label>
+    <input type="text" id="employeeName" placeholder="Enter your name">
+
+    <label for="carNumber">Car Number:</label>
+    <input type="text" id="carNumber" placeholder="Enter car number">
+
+    <!-- Approach Vehicle & Check -->
+    <fieldset>
+      <legend>Approach Vehicle & Check</legend>
+      <label><input type="checkbox" value="Carrying School Children sign visible"> Carrying School Children sign visible</label>
+      <label><input type="checkbox" value="Windshield for cracks"> Windshield for cracks</label>
+      <label><input type="checkbox" value="Valid STV inspection sticker"> Valid STV inspection sticker</label>
+      <label><input type="checkbox" value="Any visible damage"> Any visible damage</label>
+      <label><input type="checkbox" value="Vehicle leaning to one side"> Vehicle leaning to one side</label>
+      <label><input type="checkbox" value="Evidence of fluid leaks under vehicle"> Evidence of fluid leaks under vehicle</label>
+      <label><input type="checkbox" value="License plate number & expiration date"> License plate number & expiration date</label>
+    </fieldset>
+
+    <!-- Walk Around Outside & Check -->
+    <fieldset>
+      <legend>Walk Around Outside & Check</legend>
+      <label><input type="checkbox" value="Front bumper secure"> Front bumper secure</label>
+      <label><input type="checkbox" value="Tires visually for low air, bulges, anything unusual"> Tires visually for low air, bulges, anything unusual</label>
+      <label><input type="checkbox" value="Rims visually for cracks, dents, damage"> Rims visually for cracks, dents, damage</label>
+      <label><input type="checkbox" value="Lug nuts for shiny spots, rust, missing nuts"> Lug nuts for shiny spots, rust, missing nuts</label>
+      <label><input type="checkbox" value="Mud guard (if equipped)"> Mud guard (if equipped)</label>
+      <label><input type="checkbox" value="Mirrors"> Mirrors</label>
+      <label><input type="checkbox" value="Hood latch (hood secure)"> Hood latch (hood secure)</label>
+      <label><input type="checkbox" value="License plate secure"> License plate secure</label>
+      <label><input type="checkbox" value="Tail pipe and rear bumper secure"> Tail pipe and rear bumper secure</label>
+      <label><input type="checkbox" value="Lights & reflectors (built into lights)"> Lights & reflectors (built into lights)</label>
+    </fieldset>
+
+    <!-- From Driver's Seat Check -->
+    <fieldset>
+      <legend>From Driver's Seat Check</legend>
+      <label><input type="checkbox" value="Steering wheel for excess play"> Steering wheel for excess play</label>
+      <label><input type="checkbox" value="Sound horn"> Sound horn</label>
+      <label><input type="checkbox" value="Seat adjustment and seat belt"> Seat adjustment and seat belt</label>
+      <label><input type="checkbox" value="Overhead light"> Overhead light</label>
+      <label><input type="checkbox" value="Brake lights (including ABS)"> Brake lights (including ABS)</label>
+      <label><input type="checkbox" value="Gauges"> Gauges</label>
+      <label><input type="checkbox" value="Test heater and fan controls"> Test heater and fan controls</label>
+      <label><input type="checkbox" value="Test wipers and washer"> Test wipers and washer</label>
+      <label><input type="checkbox" value="Start vehicle"> Start vehicle</label>
+      <label><input type="checkbox" value="Test transmission, put lever into all gears"> Test transmission, put lever into all gears</label>
+      <label><input type="checkbox" value="Listen for unusual noises"> Listen for unusual noises</label>
+    </fieldset>
+
+    <!-- Check Brakes -->
+    <fieldset>
+      <legend>Check Brakes</legend>
+      <label><input type="checkbox" value="Test brake pedal"> Test brake pedal</label>
+      <label><input type="checkbox" value="Check brake lights"> Check brake lights</label>
+      <label><input type="checkbox" value="Test parking brake"> Test parking brake</label>
+      <label><input type="checkbox" value="Release parking brake, do mirror scan"> Release parking brake, do mirror scan</label>
+    </fieldset>
+
+    <!-- Check Inside Vehicle -->
+    <fieldset>
+      <legend>Check Inside Vehicle</legend>
+      <label><input type="checkbox" value="DVIR from the day before"> DVIR from the day before</label>
+      <label><input type="checkbox" value="STV Procedure Manual"> STV Procedure Manual</label>
+      <label><input type="checkbox" value="Registration and verify license plate number"> Registration and verify license plate number</label>
+      <label><input type="checkbox" value="Fire extinguisher properly charged and secure"> Fire extinguisher properly charged and secure</label>
+      <label><input type="checkbox" value="Flashlight (in center console)"> Flashlight (in center console)</label>
+      <label><input type="checkbox" value="Rips in floor mat, loose or torn upholstery"> Rips in floor mat, loose or torn upholstery</label>
+      <label><input type="checkbox" value="All passenger seat belts working properly"> All passenger seat belts working properly</label>
+      <label><input type="checkbox" value="Childproof door locks should be off"> Childproof door locks should be off</label>
+    </fieldset>
+
+    <label for="comments">Comments or Faults:</label>
+    <textarea id="comments" placeholder="Enter any faults or concerns"></textarea>
+
+    <button type="button" onclick="submitChecklist()">Submit</button>
+  </form>
+
+  <script>
+    async function submitChecklist() {
+      const employeeName = document.getElementById('employeeName').value;
+      const carNumber = document.getElementById('carNumber').value;
+      const comments = document.getElementById('comments').value;
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      const results = Array.from(checkboxes).map(cb => ({
+        label: cb.value,
+        checked: cb.checked,
+      }));
+
+      const payload = {
+        employeeName: employeeName,
+        carNumber: carNumber,
+        comments: comments,
+        checklist: results,
+      };
+
+      const response = await fetch('https://script.google.com/macros/s/AKfycbxWgf1_lZTgrArOacC8G22Jg2y39gU9SCactmU1cWRqjwiP8dPzhH_mpQolh1ziLRdZHQ/exec', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (response.ok) {
+        alert('Checklist submitted successfully!');
+      } else {
+        alert('Error submitting the checklist.');
+      }
+    }
+  </script>
+</body>
+</html>
